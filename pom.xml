@@ -92,8 +92,7 @@
 		
 	</dependencies>
 	
-  <distributionManagement>
-		
+  <distributionManagement>		
     <repository>
         <id>nexus</id>
         <name>Banking Releases Nexus Repository</name>
@@ -104,8 +103,7 @@
         <id>nexus</id>
         <name>Banking Snapshot Nexus Repository</name>
         <url>http://172.31.93.48:8081/repository/Baking-Snapshot/</url>
-    </snapshotRepository>
-		
+    </snapshotRepository>		
   </distributionManagement>
 
 	
