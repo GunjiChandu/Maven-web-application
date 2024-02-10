@@ -93,11 +93,11 @@
 	</dependencies>
 	
   <distributionManagement>		
-    <releaseRepository>
+    <repository>
         <id>nexus</id>
         <name>Banking Releases Nexus Repository</name>
         <url>http://35.173.187.219:8081/repository/practice-release/</url>
-    </releaseRepository>
+    </repository>
 		
     <snapshotRepository>
         <id>nexus</id>
