@@ -7,7 +7,7 @@ node {
   echo "Job name is:${env.JOB_NAME}"
   echo "Build no Is:${env.BUILD_NUMBER}"
   try {
-    notifybuild('STARTED')
+    notifyBuild('STARTED')
     stage('CheckoutCode') {
       git branch: 'development', credentialsId: '93637183-9c82-4527-a1a2-ce5ba6c121ea', url: 'https://github.com/GunjiChandu/maven-web-application.git'
     }
