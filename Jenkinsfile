@@ -21,7 +21,7 @@ node{
    }
    stage('deployToTomcatserver'){
     sshagent(['f68d277a-8d3f-4d47-9a05-d2be72869fee']) {
-    sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war  ec2-user@54-164-174-125:/opt/tomcat9/webapps/"
+    sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war  ec2-user@172.31.91.116:/opt/tomcat9/webapps/"
 }
    }
    }
@@ -56,5 +56,5 @@ slackNotifications(String buildStatus = 'STARTED')  {
   }
 
   // Send notifications
-  slackSend (color: colorCode, message: summary, channel: "bulidnotification")
+  slackSend (color: colorCode, message: summary, channel: "#bulidnotification")
 }
