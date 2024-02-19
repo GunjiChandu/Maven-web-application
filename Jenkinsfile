@@ -5,9 +5,7 @@ node{
     echo "Brach name is:${env.BRANCH_NAME}"
     echo "Job name is:${env.JOB_NAME}"
     echo "Build no Is:${env.BUILD_NUMBER}"
-    
-    properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '3', daysToKeepStr: '', numToKeepStr: '5')), [$class: 'JobLocalConfiguration', changeReasonComment: ''], pipelineTriggers([pollSCM('* * * * *')])])
-
+   try{ 
    stage('CheckoutCode') {
        git branch: 'development', credentialsId: '93637183-9c82-4527-a1a2-ce5ba6c121ea', url: 'https://github.com/GunjiChandu/maven-web-application.git'
    }
@@ -21,13 +19,20 @@ node{
    stage('uploadArtifactsNexus'){
     sh "${mavenHome}/bin/mvn deploy"
    }
-   stage('DeploytoTomcatserver'){
-       sshagent(['0bcdcdd6-103a-4866-95cb-3716b0b35142']) {
-          sh"scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@3.86.203.8:/opt/tomcat9/webapps/"
+   stage('deployToTomcatserver'){
+    sshagent(['f68d277a-8d3f-4d47-9a05-d2be72869fee']) {
+    sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war  ec2-user@54-164-174-125:/opt/tomcat9/webapps/"
+}
    }
    }
-} // node closing
-
+   catch(e) {
+    current.Build.result = "FAILED"
+   throw e
+   }
+   finally{
+    notifyBuild(currentBuild.result)
+   }
+} //node closing
 slackNotifications(String buildStatus = 'STARTED')  {
   // build status of null means successful
   buildStatus =  buildStatus ?: 'SUCCESS'
@@ -42,7 +47,7 @@ slackNotifications(String buildStatus = 'STARTED')  {
   if (buildStatus == 'STARTED') {
     color = 'YELLOW'
     colorCode = '#FFFF00'
-  } else if (buildStatus == 'SUCCESS') {
+  } else if (buildStatus == 'SUCCESSFUL') {
     color = 'GREEN'
     colorCode = '#00FF00'
   } else {
