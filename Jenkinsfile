@@ -25,7 +25,7 @@ node {
       }
     }
     stage('sendNotifySlack'){
-      slackSend channel: '#bulidnotification', color: '#FF0000', teamDomain: 'chandu-nmy7477', tokenCredentialId: '6238f91f-5ca8-4a6e-af1e-c4833c190fe4'
+      slackSend baseUrl: 'https://app.slack.com/client/T047RMXCCBG/C06HVN7JC3Z/', botUser: true, channel: '#bulidnotification', color: '#FF0000', failOnError: true, message: 'SUCCESS', notifyCommitters: true, teamDomain: 'chandu-nmy7477', tokenCredentialId: '6238f91f-5ca8-4a6e-af1e-c4833c190fe4', username: 'chandu'
   } 
     }catch (e) {
     current.Build.result = "FAILED"
