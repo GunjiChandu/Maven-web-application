@@ -23,6 +23,7 @@ node {
       sshagent(['0bcdcdd6-103a-4866-95cb-3716b0b35142']) {
         sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war  ec2-user@172.31.91.116:/opt/tomcat9/webapps/"
       }
+    }
     stage('sendNotifySlack'){
       slackSend channel: '#bulidnotification', color: '#FF0000', teamDomain: 'chandu-nmy7477', tokenCredentialId: '6238f91f-5ca8-4a6e-af1e-c4833c190fe4'
   } 
