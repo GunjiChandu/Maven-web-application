@@ -31,7 +31,8 @@ node {
     slackNotifications(currentBuild.result)
   }
 } //node closing
-
+slackSend channel: '#bulidnotification', color: '#FF0000', teamDomain: 'chandu-nmy7477', tokenCredentialId: '6238f91f-5ca8-4a6e-af1e-c4833c190fe4'
+/*
 slackNotifications(String buildStatus = 'STARTED') {
   // build status of null means successful
   buildStatus = buildStatus ? : 'SUCCESS'
@@ -56,4 +57,4 @@ slackNotifications(String buildStatus = 'STARTED') {
 
   // Send notifications
   slackSend(color: colorCode, message: summary)
-}
+} */
