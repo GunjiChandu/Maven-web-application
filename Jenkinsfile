@@ -1,5 +1,6 @@
 node {
   def mavenHome = tool name: "maven3.9.6"
+  properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '4')), [$class: 'JobLocalConfiguration', changeReasonComment: ''], pipelineTriggers([pollSCM('* * * * *')])])
 
   echo "Node name is:${env.NODE_NAME}"
   echo "Brach name is:${env.BRANCH_NAME}"
