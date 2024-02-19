@@ -24,40 +24,35 @@ node {
         sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war  ec2-user@172.31.91.116:/opt/tomcat9/webapps/"
       }
     }
-    stage('sendNotifySlack'){
-      slackSend baseUrl: 'https://app.slack.com/client/T047RMXCCBG/C06HVN7JC3Z/', botUser: true, channel: '#bulidnotification', color: '#FF0000', failOnError: true, message: 'SUCCESS', notifyCommitters: true, teamDomain: 'chandu-nmy7477', tokenCredentialId: '6238f91f-5ca8-4a6e-af1e-c4833c190fe4', username: 'chandu'
-  } 
     }catch (e) {
-    current.Build.result = "FAILED"
+    // If there was an exception thrown, the build failed
+    currentBuild.result = "FAILED"
     throw e
   } finally {
-    slackNotifications(currentBuild.result)
+    // Success or failure, always send notifications
+    notifyBuild(currentBuild.result)
   }
-} //node closing
-//slackSend channel: '#bulidnotification', color: '#FF0000', teamDomain: 'chandu-nmy7477', tokenCredentialId: '6238f91f-5ca8-4a6e-af1e-c4833c190fe4'
-/*
-slackNotifications(String buildStatus = 'STARTED') {
-  // build status of null means successful
-  buildStatus = buildStatus ? : 'SUCCESS'
-
-  // Default values
-  def colorName = 'RED'
-  def colorCode = '#FF0000'
-  def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
-  def summary = "${subject} (${env.BUILD_URL})"
-
-  // Override default values based on build status
-  if (buildStatus == 'STARTED') {
-    color = 'YELLOW'
-    colorCode = '#FFFF00'
-  } else if (buildStatus == 'SUCCESSFUL') {
-    color = 'GREEN'
-    colorCode = '#00FF00'
-  } else {
-    color = 'RED'
-    colorCode = '#FF0000'
-  }
-
-  // Send notifications
-  slackSend(color: colorCode, message: summary)
-} */
+}
+def notifyBuild(String buildStatus = 'STARTED') {
+     // build status of null means successful
+     buildStatus = buildStatus ?: 'SUCCESS'
+     // Default values
+     def colorName = 'RED'
+     def colorCode = '#FF0000'
+     def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+     def summary = "${subject} (${env.BUILD_URL})"
+     // Override default values based on build status
+     if (buildStatus == 'STARTED') {
+       color = 'YELLOW'
+       colorCode = '#FFFF00'
+     } else if (buildStatus == 'SUCCESS') {
+       color = 'GREEN'
+       colorCode = '#00FF00'
+     } else {
+       color = 'RED'
+       colorCode = '#FF0000'
+     }
+     // Send notifications
+     slackSend (color: colorCode, message: summary)
+    }
+ 
