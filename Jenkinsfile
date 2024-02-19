@@ -30,7 +30,7 @@ node{
    throw e
    }
    finally{
-    notifyBuild(currentBuild.result)
+   slackNotifications(currentBuild.result)
    }
 } //node closing
 slackNotifications(String buildStatus = 'STARTED')  {
