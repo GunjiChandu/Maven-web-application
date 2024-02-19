@@ -21,7 +21,7 @@
 		<spring.version>5.1.2.RELEASE</spring.version>
 		<junit.version>4.11</junit.version>
 		<log4j.version>1.2.17</log4j.version>
-		<sonar.host.url>http://3.82.103.122:9000/</sonar.host.url>
+		<sonar.host.url>http://44.203.156.33:9000/</sonar.host.url>
 		<sonar.login>squ_255b278761d27499e157f2b4a3049c93c1da8c0e</sonar.login>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -96,13 +96,13 @@
     <repository>
         <id>nexus</id>
         <name>Banking Releases Nexus Repository</name>
-        <url>http://3.91.199.29:8081/repository/practice-release/</url>
+        <url>http://34.204.7.93:8081/repository/practice-release/</url>
     </repository>
 		
     <snapshotRepository>
         <id>nexus</id>
         <name>Banking Snapshot Nexus Repository</name>
-        <url>http://3.91.199.29:8081/repository/practice-snapshot/</url>
+        <url>http://34.204.7.93:8081/repository/practice-snapshot/</url>
     </snapshotRepository>		
   </distributionManagement>
 
